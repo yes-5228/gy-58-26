@@ -33,10 +33,10 @@ class InMemoryStore:
             4: Court(id=4, name="C1 竞赛场", surface="专业地胶", indoor=True),
         }
         self.members = {
-            1: Member(id=1, name="散客", level="普通", discount_rate=1.0, phone=""),
-            2: Member(id=2, name="李明", level="银卡", discount_rate=0.9, phone="13800000001"),
-            3: Member(id=3, name="王悦", level="金卡", discount_rate=0.8, phone="13800000002"),
-            4: Member(id=4, name="陈教练", level="教练", discount_rate=0.7, phone="13800000003"),
+            1: Member(id=1, name="散客", level="普通", discount_rate=1.0, phone="", balance=0.0),
+            2: Member(id=2, name="李明", level="银卡", discount_rate=0.9, phone="13800000001", balance=500.0),
+            3: Member(id=3, name="王悦", level="金卡", discount_rate=0.8, phone="13800000002", balance=2000.0),
+            4: Member(id=4, name="陈教练", level="教练", discount_rate=0.7, phone="13800000003", balance=1000.0),
         }
 
         hours = ["08:00-10:00", "10:00-12:00", "14:00-16:00", "16:00-18:00", "19:00-21:00"]

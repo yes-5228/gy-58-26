@@ -287,6 +287,56 @@ select {
   text-align: right;
 }
 
+.balance-box {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 12px 14px;
+  border: 1px solid #c9e8db;
+  border-radius: 6px;
+  background: #f0faf4;
+}
+
+.balance-box span {
+  flex: 1;
+  color: #475852;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.balance-box strong {
+  color: #0f6f58;
+  font-size: 18px;
+}
+
+.deduction-label {
+  color: #0f6f58 !important;
+}
+
+.deduction-value {
+  color: #0f6f58;
+}
+
+.offline-label {
+  color: #7a4c00 !important;
+}
+
+.offline-value {
+  color: #b45309;
+}
+
+.payment-details {
+  margin-top: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.detail-item {
+  font-size: 11px !important;
+  color: #6b7a74 !important;
+}
+
 .primary-action {
   min-height: 44px;
   border: 0;

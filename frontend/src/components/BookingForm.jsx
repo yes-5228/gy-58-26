@@ -1,8 +1,10 @@
-import { CreditCard } from 'lucide-react'
+import { CreditCard, Wallet } from 'lucide-react'
 
 export function BookingForm({ members, selectedSlot, contactName, memberId, onContactName, onMemberId, onSubmit }) {
   const member = members.find((item) => item.id === Number(memberId))
-  const amount = selectedSlot && member ? (selectedSlot.price * member.discount_rate).toFixed(2) : '0.00'
+  const payableAmount = selectedSlot && member ? selectedSlot.price * member.discount_rate : 0
+  const balanceDeducted = member ? Math.min(member.balance, payableAmount) : 0
+  const offlinePayment = Math.max(payableAmount - balanceDeducted, 0)
 
   return (
     <section className="panel booking-panel">
@@ -25,11 +27,26 @@ export function BookingForm({ members, selectedSlot, contactName, memberId, onCo
             ))}
           </select>
         </label>
+        {member && (
+          <div className="balance-box">
+            <Wallet size={16} />
+            <span>账户余额</span>
+            <strong>¥{member.balance.toFixed(2)}</strong>
+          </div>
+        )}
         <div className="settlement-box">
           <span>当前时段</span>
           <strong>{selectedSlot ? selectedSlot.label : '请选择可预约时段'}</strong>
           <span>应付金额</span>
-          <strong>¥{amount}</strong>
+          <strong>¥{payableAmount.toFixed(2)}</strong>
+          {selectedSlot && member && (
+            <>
+              <span className="deduction-label">余额抵扣</span>
+              <strong className="deduction-value">-¥{balanceDeducted.toFixed(2)}</strong>
+              <span className="offline-label">线下收款</span>
+              <strong className="offline-value">¥{offlinePayment.toFixed(2)}</strong>
+            </>
+          )}
         </div>
         <button className="primary-action" type="submit" disabled={!selectedSlot || !contactName.trim()}>
           提交预约

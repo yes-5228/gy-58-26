@@ -40,4 +40,9 @@ export const api = {
     request(`/bookings/${bookingId}/cancel`, {
       method: 'POST',
     }),
+  rechargeMember: (memberId, amount) =>
+    request(`/members/${memberId}/recharge`, {
+      method: 'POST',
+      body: JSON.stringify({ amount }),
+    }),
 }

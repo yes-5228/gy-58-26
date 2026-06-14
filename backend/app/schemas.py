@@ -23,3 +23,7 @@ class BookingCreate(BaseModel):
     slot_id: int
     member_id: int = 1
     contact_name: str = Field(min_length=1)
+
+
+class MemberRecharge(BaseModel):
+    amount: float = Field(gt=0)

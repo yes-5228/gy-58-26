@@ -22,6 +22,16 @@ export function BookingList({ bookings, courtsById, onSettle, onCancel }) {
               <div className="amount-block">
                 <span>原价 ¥{booking.original_amount.toFixed(2)}</span>
                 <strong>实付 ¥{booking.payable_amount.toFixed(2)}</strong>
+                {booking.status === 'paid' && (
+                  <div className="payment-details">
+                    {booking.balance_deducted > 0 && (
+                      <span className="detail-item">余额抵扣: -¥{booking.balance_deducted.toFixed(2)}</span>
+                    )}
+                    {booking.offline_payment > 0 && (
+                      <span className="detail-item">线下收款: ¥{booking.offline_payment.toFixed(2)}</span>
+                    )}
+                  </div>
+                )}
               </div>
               <div className={`status-pill ${booking.status}`}>{booking.status}</div>
               <div className="row-actions">

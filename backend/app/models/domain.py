@@ -14,6 +14,7 @@ class Member(BaseModel):
     level: str
     discount_rate: float = Field(ge=0.0, le=1.0)
     phone: str = ""
+    balance: float = Field(ge=0.0)
 
 
 class TimeSlot(BaseModel):
@@ -35,5 +36,7 @@ class Booking(BaseModel):
     original_amount: float
     discount_rate: float
     payable_amount: float
+    balance_deducted: float = 0.0
+    offline_payment: float = 0.0
     status: str = "pending"
     created_at: str

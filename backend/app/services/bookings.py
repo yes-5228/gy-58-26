@@ -49,7 +49,25 @@ def settle_booking(booking_id: int) -> Booking:
         raise HTTPException(status_code=404, detail="预约不存在")
     if booking.status == "paid":
         return booking
-    paid = booking.model_copy(update={"status": "paid"})
+
+    member = store.members.get(booking.member_id)
+    if not member:
+        raise HTTPException(status_code=404, detail="会员不存在")
+
+    payable = booking.payable_amount
+    balance_deducted = min(member.balance, payable)
+    offline_payment = round(payable - balance_deducted, 2)
+
+    new_balance = round(member.balance - balance_deducted, 2)
+    store.members[booking.member_id] = member.model_copy(update={"balance": new_balance})
+
+    paid = booking.model_copy(
+        update={
+            "status": "paid",
+            "balance_deducted": balance_deducted,
+            "offline_payment": offline_payment,
+        }
+    )
     store.bookings[booking_id] = paid
     return paid
 
